@@ -1,0 +1,22 @@
+
+CREATE TABLE employees (
+    id INT,
+    name STRING,
+    salary FLOAT
+)
+PARTITIONED BY (department STRING);
+
+hdfs dfs -put "C:\Users\laxma\OneDrive\Desktop\hr.txt" "/laxma/hive/warehouse/employees/hr.txt"
+hdfs dfs -put "C:\Users\laxma\OneDrive\Desktop\finance.txt" "/laxma/hive/warehouse/employees/finance.txt"
+
+LOAD DATA INPATH 'C:\Users\laxma\OneDrive\Desktop\hr.txt' INTO TABLE employees PARTITION (department='HR');
+LOAD DATA INPATH 'C:\Users\laxma\OneDrive\Desktop\finance.txt' INTO TABLE employees PARTITION (department='Finance');
+
+
+SELECT * FROM employees WHERE department = 'HR';
+SELECT * FROM employees WHERE department = 'Finance';
+
+show partitions employees;
+
+
+
